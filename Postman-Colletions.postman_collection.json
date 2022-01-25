@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "84c1fdd1-5a9d-48d9-bf28-2e82b68f8f2a",
+		"_postman_id": "fa010c3f-ce0e-4392-ab68-e292cc02853f",
 		"name": "Postman-Colletions",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -145,7 +145,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -225,7 +225,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -305,7 +305,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -385,7 +385,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -467,7 +467,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -552,7 +552,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -632,7 +632,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -712,7 +712,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -792,7 +792,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -874,7 +874,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"",
 																	"pm.environment.set('body', body);",
 																	"pm.environment.set('timestamp', timestamp);",
@@ -954,7 +954,7 @@
 																	"var body = pm.request.body.toString()",
 																	"",
 																	"var message = login + timestamp.toString() + body",
-																	"var secret = pm.environment.get('secretkey');",
+																	"var secret = pm.environment.get('Secretkey');",
 																	"var xIdempotency = \"a8a85bce-5733-4a6c-91b5-553ed4b3de18\"",
 																	"",
 																	"pm.environment.set('body', body);",
@@ -1048,7 +1048,7 @@
 															"var body = pm.request.body.toString()",
 															"",
 															"var message = login + timestamp.toString() + body",
-															"var secret = pm.environment.get('secretkey');",
+															"var secret = pm.environment.get('Secretkey');",
 															"",
 															"pm.environment.set('body', body);",
 															"pm.environment.set('timestamp', timestamp);",
@@ -1135,7 +1135,7 @@
 													"var body = pm.request.body.toString()",
 													"",
 													"var message = login + timestamp.toString() + body",
-													"var secret = pm.environment.get('secretkey');",
+													"var secret = pm.environment.get('Secretkey');",
 													"",
 													"pm.environment.set('body', body);",
 													"pm.environment.set('timestamp', timestamp);",
@@ -1223,7 +1223,7 @@
 															"var body = pm.request.body.toString()",
 															"",
 															"var message = login + timestamp.toString() + body",
-															"var secret = pm.environment.get('secretkey');",
+															"var secret = pm.environment.get('Secretkey');",
 															"",
 															"pm.environment.set('body', body);",
 															"pm.environment.set('timestamp', timestamp);",
@@ -1303,7 +1303,7 @@
 															"var body = pm.request.body.toString()",
 															"",
 															"var message = login + timestamp.toString() + body",
-															"var secret = pm.environment.get('secretkey');",
+															"var secret = pm.environment.get('Secretkey');",
 															"",
 															"pm.environment.set('body', body);",
 															"pm.environment.set('timestamp', timestamp);",
@@ -1388,7 +1388,7 @@
 															"var body = pm.request.body.toString()",
 															"",
 															"var message = login + timestamp.toString() + body",
-															"var secret = pm.environment.get('secretkey');",
+															"var secret = pm.environment.get('Secretkey');",
 															"",
 															"pm.environment.set('body', body);",
 															"pm.environment.set('timestamp', timestamp);",
@@ -1468,7 +1468,7 @@
 															"var body = pm.request.body.toString()",
 															"",
 															"var message = login + timestamp.toString() + body",
-															"var secret = pm.environment.get('secretkey');",
+															"var secret = pm.environment.get('Secretkey');",
 															"",
 															"pm.environment.set('body', body);",
 															"pm.environment.set('timestamp', timestamp);",
@@ -1552,7 +1552,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -1647,7 +1647,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -1724,7 +1724,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -1804,7 +1804,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -1884,7 +1884,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -1957,7 +1957,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2034,7 +2034,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2133,7 +2133,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = login + timestamp.toString() + body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2225,7 +2225,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2243,11 +2243,29 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"1241530812315678b\",\n    \"document_id\":\"44640599\",\n    \"beneficiary_name\":\"Gerardo\",\n    \"beneficiary_lastname\":\"Lopez\",\n    \"country\":\"UY\",\n    \"bank_code\":\"113\",\n    \"bank_account\":\"1234567\",\n    \"account_type\":\"C\",\n    \"amount\":\"200\"\n}",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"1241530812315678b\",\n    \"document_id\":\"44640599\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"UY\",\n    \"bank_code\":\"113\",\n    \"bank_account\":\"1234567\",\n    \"account_type\":\"C\",\n    \"amount\":\"200\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2289,7 +2307,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2307,11 +2325,29 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7281567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
+									"raw": "{\n    \"login\":\"38f838a3fd\",\n    \"pass\":\"a3acd84956\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2353,7 +2389,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2371,6 +2407,24 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -2417,7 +2471,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2435,6 +2489,24 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -2481,7 +2553,7 @@
 											"var body = pm.request.body.toString()",
 											"",
 											"var message = body",
-											"var secret = pm.environment.get('secretkey');",
+											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
 											"pm.environment.set('timestamp', timestamp);",
@@ -2499,6 +2571,24 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -2547,7 +2637,7 @@
 									"var body = pm.request.body.toString()",
 									"",
 									"var message = body",
-									"var secret = pm.environment.get('secretkey');",
+									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
 									"pm.environment.set('timestamp', timestamp);",
@@ -2565,6 +2655,24 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -2611,7 +2719,7 @@
 									"var body = pm.request.body.toString()",
 									"",
 									"var message = body",
-									"var secret = pm.environment.get('secretkey');",
+									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
 									"pm.environment.set('timestamp', timestamp);",
@@ -2629,6 +2737,24 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -2675,7 +2801,7 @@
 									"var body = pm.request.body.toString()",
 									"",
 									"var message = body",
-									"var secret = pm.environment.get('secretkey');",
+									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
 									"pm.environment.set('timestamp', timestamp);",
@@ -2694,11 +2820,29 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"currency\": \"UYU\"\n}",
+							"raw": "{\n    \"login\":\"38f838a3fd\",\n    \"pass\":\"a3acd84956\",\n    \"currency\": \"UYU\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
