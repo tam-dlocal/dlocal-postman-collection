@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fa010c3f-ce0e-4392-ab68-e292cc02853f",
+		"_postman_id": "a7ceb26d-cf86-4064-a60d-0931fba46d8f",
 		"name": "Postman-Colletions",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -2347,7 +2347,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"38f838a3fd\",\n    \"pass\":\"a3acd84956\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
