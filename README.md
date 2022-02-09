@@ -1,7 +1,9 @@
-# How to Download the Postman-Collections and the Sandbox Payins and Payouts Environment
-To download the Postman-Collection click on the Postman-Colletions.postman_collection.json link.
+# Prepare your environment 
+**Download Postman Collection**
 
-Click on Code and then click on download ZIP.
+**How to download**
 
-Once download is complete proceed to import the collections into Postman.
+1. Click on the following [Link](https://https://github.com/tam-dLocal/Postman-Collection)
+2. Click on Code and then click on download ZIP
+
 
