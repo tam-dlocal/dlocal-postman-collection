@@ -71,7 +71,7 @@ Here you can test all available requests.
 
 **Smart Fields**
 
- 1. For Payins using Smart Fields you need to generate your Smart Fields token here 
+ 1. For Payins using Smart Fields you need to generate your Smart Fields token [here](https://dlocal.github.io/smart-fields-examples/)
 
 ![Alt text](https://github.com/tam-dLocal/Images-for-Readme/blob/main/readme9.png "Optional title")
 ![Alt text](https://github.com/tam-dLocal/Images-for-Readme/blob/main/readme10.png "Optional title")
