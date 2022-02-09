@@ -1,0 +1,2875 @@
+{
+	"info": {
+		"_postman_id": "a3607724-0e62-4561-bed3-9642e91186df",
+		"name": "Postman-Collections Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Payins",
+			"item": [
+				{
+					"name": "Payment Methods",
+					"item": [
+						{
+							"name": "Payment Methods",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Version",
+										"value": "2.1",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.28.4",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/payments-methods?country=",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"payments-methods"
+									],
+									"query": [
+										{
+											"key": "country",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Payments",
+					"item": [
+						{
+							"name": "Cards",
+							"item": [
+								{
+									"name": "Cards Direct",
+									"item": [
+										{
+											"name": "Pay with Smart Fields",
+											"item": [
+												{
+													"name": "Sale Payment with Smart Fields",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 120.00,\n    \"currency\" : \"UYU\",\n    \"country\": \"UY\",\n    \"payment_method_id\" : \"CARD\",\n    \"payment_method_flow\" : \"DIRECT\",\n    \"payer\":{\n        \"name\" : \"Thiago Gabriel\",\n        \"email\" : \"thiago@example.com\",\n        \"document\" : \"53033315550\",\n        \"user_reference\": \"12345\",\n        \"address\": {\n            \"state\"  : \"Rio de Janeiro\",\n            \"city\" : \"Volta Redonda\",\n            \"zip_code\" : \"27275-595\",\n            \"street\" : \"Servidao B-1\",\n            \"number\" : \"1106\"\n        },\n        \"ip\" : \"179.27.83.210\",\n        \"device_id\" : \"2fg3d4gf234\"\n    },\n    \"card\":{\n        \"token\": \"Insert your Smart Fields token here\"\n    },\n    \"order_id\": \"651434343\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Auth Payment with Smart Fields",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 1,\n    \"currency\" : \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\" : \"CARD\",\n    \"payment_method_flow\" : \"DIRECT\",\n    \"payer\":{\n        \"name\" : \"Thiago Gabriel\",\n        \"email\" : \"thiago@example.com\",\n        \"document\" : \"53033315550\"\n    },\n    \"card\":{\n        \"token\": \"Insert your Smart Fields token here\",\n        \"capture\": \"false\"\n    },\n    \"order_id\": \"657434343\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Capture Payment with Smart Fields",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"authorization_id\": \"{T-4-0e2e2682-62c8-4040-8328-9fea17f316ab}\",\n    \"amount\": 1,\n    \"currency\": \"BRL\",\n    \"order_id\": \"657434343\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Cancel Payment with Smart Fields",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments/{payment_id}/cancel",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments",
+																"{payment_id}",
+																"cancel"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Verify Payment with Smart Fields",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 0,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CARD\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"MXFGpBEw AJsGTALt\",\n        \"email\": \"0yesa0xbd3g2-autest@dlocal.com\",\n        \"document\" : \"53033315550\",\n        \"phone\": \"4832695335\",\n        \"address\": {\n            \"country\": \"BR\",\n            \"state\": \"Santa Catarina\",\n            \"city\": \"Florianopolis\",\n            \"zip_code\": \"88058\",\n            \"street\": \"Rodovia Armando Calil Bulos\",\n            \"number\": \"5940\"\n        }\n    },\n    \"card\":{\n        \"token\": \"Insert your Smart Fields token here\",\n        \"capture\": \"false\",\n        \"verify\": \"true\"\n    },\n    \"order_id\": \"BENtest-h8fJ8blUTjY\",\n    \"description\": \"LO4nLkTqt2tt\",\n    \"notification_url\": \"https://postman-echo.com/post\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										},
+										{
+											"name": "Pay with card information",
+											"item": [
+												{
+													"name": "Direct Secure Payment Sale",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 10,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CARD\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"MXFGpBEw AJsGTALt\",\n        \"email\": \"0yesa0xbd3g2-autest@dlocal.com\",\n        \"document\" : \"53033315550\",\n        \"phone\": \"4832695335\",\n        \"address\": {\n            \"country\": \"BR\",\n            \"state\": \"Santa Catarina\",\n            \"city\": \"Florianopolis\",\n            \"zip_code\": \"88058\",\n            \"street\": \"Rodovia Armando Calil Bulos\",\n            \"number\": \"5940\"\n        }\n    },\n    \"card\":{\n        \"holder_name\" : \"Thiago Gabriel\",\n        \"number\" : \"4111111111111111\",\n        \"cvv\" : \"123\",\n        \"expiration_month\" : 10,\n        \"expiration_year\" : 2040,\n        \"capture\" : \"true\"\n    },\n    \"order_id\": \"BENtest-h8fJ8blUTjY\",\n    \"description\": \"LO4nLkTqt2tt\",\n    \"notification_url\": \"https://postman-echo.com/post\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/secure_payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"secure_payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Direct Secure Payment Auth",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 120,\n    \"currency\" : \"USD\",\n    \"country\": \"BR\",\n    \"payment_method_id\" : \"CARD\",\n    \"payment_method_flow\" : \"DIRECT\",\n    \"payer\":{\n        \"name\" : \"Thiago Gabriel\",\n        \"email\" : \"thiago@example.com\",\n        \"document\" : \"53033315550\"\n    },\n    \"card\":{\n        \"holder_name\" : \"Thiago Gabriel\",\n        \"number\" : \"4111111111111111\",\n        \"cvv\" : \"123\",\n        \"expiration_month\" : 10,\n        \"expiration_year\" : 2024,\n        \"capture\" : \"false\"\n    },\n    \"order_id\": \"657434343\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/secure_payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"secure_payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Direct Secure Payment Capture",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"authorization_id\": \"T-4-cef9ed0d-077a-4551-b61d-997edbd25bbc\",\n    \"amount\": 10,\n    \"currency\": \"BRL\",\n    \"order_id\": \"BENtest-h8fJ8blUTjY\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Direct Secure Payment Cancel",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/payments/{payment_id}/cancel",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"payments",
+																"{payment_id}",
+																"cancel"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Direct Secure Payment Verify",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 0,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CARD\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"MXFGpBEw AJsGTALt\",\n        \"email\": \"0yesa0xbd3g2-autest@dlocal.com\",\n        \"document\" : \"53033315550\",\n        \"phone\": \"4832695335\",\n        \"address\": {\n            \"country\": \"BR\",\n            \"state\": \"Santa Catarina\",\n            \"city\": \"Florianopolis\",\n            \"zip_code\": \"88058\",\n            \"street\": \"Rodovia Armando Calil Bulos\",\n            \"number\": \"5940\"\n        }\n    },\n    \"card\":{\n        \"holder_name\" : \"Thiago Gabriel\",\n        \"number\" : \"4111111111111111\",\n        \"cvv\" : \"123\",\n        \"expiration_month\" : 10,\n        \"expiration_year\" : 2040,\n        \"verify\": true,\n        \"capture\" : \"false\"\n    },\n    \"order_id\": \"BENtest-h8fJ8blUTjY\",\n    \"description\": \"LO4nLkTqt2tt\",\n    \"notification_url\": \"https://postman-echo.com/post\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/secure_payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"secure_payments"
+															]
+														}
+													},
+													"response": []
+												},
+												{
+													"name": "Direct Secure Payment Sale Idempotency",
+													"event": [
+														{
+															"listen": "prerequest",
+															"script": {
+																"exec": [
+																	"function hmac_512(message, secret) {",
+																	"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+																	"    return newHMAC;",
+																	"}",
+																	"",
+																	"let timestamp = new Date().toJSON();",
+																	"",
+																	"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+																	"  (match, capture) => pm.variables.get(capture));",
+																	"",
+																	"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+																	"var body = pm.request.body.toString()",
+																	"",
+																	"var message = login + timestamp.toString() + body",
+																	"var secret = pm.environment.get('Secretkey');",
+																	"var xIdempotency = \"a8a85bce-5733-4a6c-91b5-553ed4b3de18\"",
+																	"",
+																	"pm.environment.set('body', body);",
+																	"pm.environment.set('timestamp', timestamp);",
+																	"pm.environment.set(\"login\",login)",
+																	"pm.environment.set(\"xIdempotency\",xIdempotency)",
+																	"pm.environment.set(\"message\",message)",
+																	"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+																	"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+																	""
+																],
+																"type": "text/javascript"
+															}
+														}
+													],
+													"request": {
+														"method": "POST",
+														"header": [
+															{
+																"key": "X-Date",
+																"value": "{{timestamp}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Login",
+																"value": "{{X-Login}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Trans-Key",
+																"value": "{{X-Trans-Key}}",
+																"type": "text"
+															},
+															{
+																"key": "Authorization",
+																"value": "{{authorization}}",
+																"type": "text"
+															},
+															{
+																"key": "X-Idempotency-Key",
+																"value": "{{xIdempotency}}",
+																"type": "text"
+															}
+														],
+														"body": {
+															"mode": "raw",
+															"raw": "{\n    \"amount\": 10,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CARD\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"MXFGpBEw AJsGTALt\",\n        \"email\": \"0yesa0xbd3g2-autest@dlocal.com\",\n        \"document\" : \"53033315550\",\n        \"phone\": \"4832695335\",\n        \"address\": {\n            \"country\": \"BR\",\n            \"state\": \"Santa Catarina\",\n            \"city\": \"Florianopolis\",\n            \"zip_code\": \"88058\",\n            \"street\": \"Rodovia Armando Calil Bulos\",\n            \"number\": \"5940\"\n        }\n    },\n    \"card\":{\n        \"holder_name\" : \"Thiago Gabriel\",\n        \"number\" : \"4111111111111111\",\n        \"cvv\" : \"123\",\n        \"expiration_month\" : 10,\n        \"expiration_year\" : 2040,\n        \"capture\" : \"false\"\n    },\n    \"order_id\": \"Gera1123459\",\n    \"description\": \"LO4nLkTqt2tt\",\n    \"notification_url\": \"https://postman-echo.com/post\"\n}",
+															"options": {
+																"raw": {
+																	"language": "json"
+																}
+															}
+														},
+														"url": {
+															"raw": "{{host}}/secure_payments",
+															"host": [
+																"{{host}}"
+															],
+															"path": [
+																"secure_payments"
+															]
+														}
+													},
+													"response": []
+												}
+											]
+										}
+									]
+								},
+								{
+									"name": "Cards Redirect",
+									"item": [
+										{
+											"name": "Payment with card information",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"function hmac_512(message, secret) {",
+															"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+															"    return newHMAC;",
+															"}",
+															"",
+															"let timestamp = new Date().toJSON();",
+															"",
+															"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+															"  (match, capture) => pm.variables.get(capture));",
+															"",
+															"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+															"var body = pm.request.body.toString()",
+															"",
+															"var message = login + timestamp.toString() + body",
+															"var secret = pm.environment.get('Secretkey');",
+															"",
+															"pm.environment.set('body', body);",
+															"pm.environment.set('timestamp', timestamp);",
+															"pm.environment.set(\"login\",login)",
+															"pm.environment.set(\"message\",message)",
+															"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+															"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+															""
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "X-Date",
+														"value": "{{timestamp}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Login",
+														"value": "{{X-Login}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Trans-Key",
+														"value": "{{X-Trans-Key}}",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "{{authorization}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"amount\": 10,\n    \"currency\" : \"UYU\",\n    \"country\": \"UY\",\n    \"payment_method_id\" : \"CARD\",\n    \"payment_method_flow\" : \"REDIRECT\",\n    \"payer\":{\n        \"name\" : \"Thiago Gabriel\",\n        \"email\" : \"thiago@example.com\",\n        \"document\" : \"10264802\",\n        \"user_reference\": \"12345\",\n        \"address\": {\n            \"state\"  : \"Rio de Janeiro\",\n            \"city\" : \"Volta Redonda\",\n            \"zip_code\" : \"27275-595\",\n            \"street\" : \"Servidao B-1\",\n            \"number\" : \"1106\"\n        }\n    },\n    \"order_id\": \"6171311343\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/payments",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"payments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Redirect",
+							"item": [
+								{
+									"name": "2 Steps Chechout (without payment_method_id)",
+									"event": [
+										{
+											"listen": "prerequest",
+											"script": {
+												"exec": [
+													"function hmac_512(message, secret) {",
+													"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+													"    return newHMAC;",
+													"}",
+													"",
+													"let timestamp = new Date().toJSON();",
+													"",
+													"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+													"  (match, capture) => pm.variables.get(capture));",
+													"",
+													"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+													"var body = pm.request.body.toString()",
+													"",
+													"var message = login + timestamp.toString() + body",
+													"var secret = pm.environment.get('Secretkey');",
+													"",
+													"pm.environment.set('body', body);",
+													"pm.environment.set('timestamp', timestamp);",
+													"pm.environment.set(\"login\",login)",
+													"pm.environment.set(\"message\",message)",
+													"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+													"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "X-Date",
+												"value": "{{timestamp}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Login",
+												"value": "{{X-Login}}",
+												"type": "text"
+											},
+											{
+												"key": "X-Trans-Key",
+												"value": "{{X-Trans-Key}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "{{authorization}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"amount\": 150,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_flow\": \"REDIRECT\",\n    \"payer\": {\n        \"name\": \"Thiago Gabriel\",\n        \"email\": \"thiago@example.com\",\n        \"document\": \"95343134165\"\n    },\n    \"order_id\": \"5346117155\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{host}}/payments",
+											"host": [
+												"{{host}}"
+											],
+											"path": [
+												"payments"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "APM(Bank Transfer and Cash Payments)",
+							"item": [
+								{
+									"name": "Bank Transfer",
+									"item": [
+										{
+											"name": "Direct Bank Transfer",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"function hmac_512(message, secret) {",
+															"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+															"    return newHMAC;",
+															"}",
+															"",
+															"let timestamp = new Date().toJSON();",
+															"",
+															"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+															"  (match, capture) => pm.variables.get(capture));",
+															"",
+															"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+															"var body = pm.request.body.toString()",
+															"",
+															"var message = login + timestamp.toString() + body",
+															"var secret = pm.environment.get('Secretkey');",
+															"",
+															"pm.environment.set('body', body);",
+															"pm.environment.set('timestamp', timestamp);",
+															"pm.environment.set(\"login\",login)",
+															"pm.environment.set(\"message\",message)",
+															"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+															"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+															"pm.collectionVariables.set (\"randomNum\", _.random (1,10));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "X-Date",
+														"value": "{{timestamp}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Login",
+														"value": "{{X-Login}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Trans-Key",
+														"value": "{{X-Trans-Key}}",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "{{authorization}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"amount\": 100,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CA\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"Thiago Gabriel\",\n        \"email\": \"thiago@example.com\",\n        \"document\": \"53033315550\"\n    },\n    \"order_id\": \"497529191740\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/payments",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"payments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Redirect Bank Transfer",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"function hmac_512(message, secret) {",
+															"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+															"    return newHMAC;",
+															"}",
+															"",
+															"let timestamp = new Date().toJSON();",
+															"",
+															"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+															"  (match, capture) => pm.variables.get(capture));",
+															"",
+															"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+															"var body = pm.request.body.toString()",
+															"",
+															"var message = login + timestamp.toString() + body",
+															"var secret = pm.environment.get('Secretkey');",
+															"",
+															"pm.environment.set('body', body);",
+															"pm.environment.set('timestamp', timestamp);",
+															"pm.environment.set(\"login\",login)",
+															"pm.environment.set(\"message\",message)",
+															"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+															"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+															"pm.collectionVariables.set (\"randomNum\", _.random (1,10));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "X-Date",
+														"value": "{{timestamp}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Login",
+														"value": "{{X-Login}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Trans-Key",
+														"value": "{{X-Trans-Key}}",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "{{authorization}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"amount\": 100,\n    \"currency\": \"BRL\",\n    \"country\": \"BR\",\n    \"payment_method_id\": \"CA\",\n    \"payment_method_flow\": \"REDIRECT\",\n    \"payer\": {\n        \"name\": \"Thiago Gabriel\",\n        \"email\": \"thiago@example.com\",\n        \"document\": \"53033315550\"\n    },\n    \"order_id\": \"497529191140\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/payments",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"payments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Ticket (Cash)",
+									"item": [
+										{
+											"name": "Direct Ticket(Cash)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"function hmac_512(message, secret) {",
+															"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+															"    return newHMAC;",
+															"}",
+															"",
+															"let timestamp = new Date().toJSON();",
+															"",
+															"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+															"  (match, capture) => pm.variables.get(capture));",
+															"",
+															"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+															"var body = pm.request.body.toString()",
+															"",
+															"var message = login + timestamp.toString() + body",
+															"var secret = pm.environment.get('Secretkey');",
+															"",
+															"pm.environment.set('body', body);",
+															"pm.environment.set('timestamp', timestamp);",
+															"pm.environment.set(\"login\",login)",
+															"pm.environment.set(\"message\",message)",
+															"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+															"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+															"pm.collectionVariables.set (\"randomNum\", _.random (1,10));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "X-Date",
+														"value": "{{timestamp}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Login",
+														"value": "{{X-Login}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Trans-Key",
+														"value": "{{X-Trans-Key}}",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "{{authorization}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"amount\": 100,\n    \"currency\": \"MXN\",\n    \"country\": \"MX\",\n    \"payment_method_id\": \"SE\",\n    \"payment_method_flow\": \"DIRECT\",\n    \"payer\": {\n        \"name\": \"Thiago Gabriel\",\n        \"email\": \"thiago@example.com\",\n        \"document\": \"53033315550\"\n    },\n    \"order_id\": \"49752919740\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/payments",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"payments"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Redirect Ticket (Cash)",
+											"event": [
+												{
+													"listen": "prerequest",
+													"script": {
+														"exec": [
+															"function hmac_512(message, secret) {",
+															"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+															"    return newHMAC;",
+															"}",
+															"",
+															"let timestamp = new Date().toJSON();",
+															"",
+															"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+															"  (match, capture) => pm.variables.get(capture));",
+															"",
+															"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+															"var body = pm.request.body.toString()",
+															"",
+															"var message = login + timestamp.toString() + body",
+															"var secret = pm.environment.get('Secretkey');",
+															"",
+															"pm.environment.set('body', body);",
+															"pm.environment.set('timestamp', timestamp);",
+															"pm.environment.set(\"login\",login)",
+															"pm.environment.set(\"message\",message)",
+															"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+															"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+															"pm.collectionVariables.set (\"randomNum\", _.random (1,10));"
+														],
+														"type": "text/javascript"
+													}
+												}
+											],
+											"request": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "X-Date",
+														"value": "{{timestamp}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Login",
+														"value": "{{X-Login}}",
+														"type": "text"
+													},
+													{
+														"key": "X-Trans-Key",
+														"value": "{{X-Trans-Key}}",
+														"type": "text"
+													},
+													{
+														"key": "Authorization",
+														"value": "{{authorization}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"amount\": 100,\n    \"currency\": \"MXN\",\n    \"country\": \"MX\",\n    \"payment_method_id\": \"SE\",\n    \"payment_method_flow\": \"REDIRECT\",\n    \"payer\": {\n        \"name\": \"Thiago Gabriel\",\n        \"email\": \"thiago@example.com\",\n        \"document\": \"53033315550\"\n    },\n    \"order_id\": \"497529191740\",\n    \"notification_url\": \"http://merchant.com/notifications\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{host}}/payments",
+													"host": [
+														"{{host}}"
+													],
+													"path": [
+														"payments"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Get Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{x-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Version",
+										"value": "2.1",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.28.4",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/payments/{payment_id}/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"payments",
+										"{payment_id}",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Payment",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/payments/{payment_id}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"payments",
+										"{payment_id}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Refunds",
+					"item": [
+						{
+							"name": "Make a Refund Cards",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"payment_id\": \"T-4-f2f72e79-e8b1-4591-af54-c266a1bfd76a\",\n    \"amount\": \"120\",\n    \"currency\": \"BRL\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/refunds",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"refunds"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Make a Refund APMS",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"payment_id\" : \"D-4-0241a93e-36d0-4f59-a713-0522308aafea\",\n    \"amount\": 100,\n    \"currency\": \"MXN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/refunds",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"refunds"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check Refund Status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/refunds/{refund_id}/status",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"refunds",
+										"{refund_id}",
+										"status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retrieve a refund",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/refunds/{refund_id}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"refunds",
+										"{refund_id}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Retrieve an order",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Version",
+										"value": "2.1",
+										"type": "text"
+									},
+									{
+										"key": "User-Agent",
+										"value": "PostmanRuntime/7.28.4",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host}}/orders/49752919740",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"orders",
+										"49752919740"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Currency Exchange",
+					"item": [
+						{
+							"name": "Currency Exchange",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = login + timestamp.toString() + body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"login\",login)",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"signature\", String(hmac_512(message,secret)));",
+											"pm.environment.set(\"authorization\", \"V2-HMAC-SHA256, Signature: \" + String(hmac_512(message,secret)));",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"description": "guido",
+										"type": "text"
+									},
+									{
+										"key": "X-Login",
+										"value": "{{X-Login}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Trans-key",
+										"value": "{{X-Trans-Key}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{authorization}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host}}/currency-exchanges?from=USD&to=UYU",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"currency-exchanges"
+									],
+									"query": [
+										{
+											"key": "from",
+											"value": "USD"
+										},
+										{
+											"key": "to",
+											"value": "UYU"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payouts",
+			"item": [
+				{
+					"name": "Submit a Payout",
+					"item": [
+						{
+							"name": "Uruguayan Payout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Payload-Signature",
+										"value": "{{payload-signature}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"1241530812315678b\",\n    \"document_id\":\"44640599\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"UY\",\n    \"bank_code\":\"113\",\n    \"bank_account\":\"1234567\",\n    \"account_type\":\"C\",\n    \"amount\":\"200\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api_curl/cashout_api/request_cashout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api_curl",
+										"cashout_api",
+										"request_cashout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Brazilian Payout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Payload-Signature",
+										"value": "{{payload-signature}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api_curl/cashout_api/request_cashout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api_curl",
+										"cashout_api",
+										"request_cashout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Nigeria Payout",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Payload-Signature",
+										"value": "{{payload-signature}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7281567812315682b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"NG\",\n    \"currency\": \"NGN\",\n    \"bank_code\":\"011\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"0126974783\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\"\n   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api_curl/cashout_api/request_cashout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api_curl",
+										"cashout_api",
+										"request_cashout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mexican Payout to bank account",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Payload-Signature",
+										"value": "{{payload-signature}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7235507812315678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"137\",\n    \"bank_account\":\"012180001116984192\",\n    \"amount\":\"20\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api_curl/cashout_api/request_cashout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api_curl",
+										"cashout_api",
+										"request_cashout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mexican Payout to debit card",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"function hmac_512(message, secret) {",
+											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+											"    return newHMAC;",
+											"}",
+											"",
+											"let timestamp = new Date().toJSON();",
+											"",
+											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+											"  (match, capture) => pm.variables.get(capture));",
+											"",
+											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+											"var body = pm.request.body.toString()",
+											"",
+											"var message = body",
+											"var secret = pm.environment.get('Secretkey');",
+											"",
+											"pm.environment.set('body', body);",
+											"pm.environment.set('timestamp', timestamp);",
+											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Payload-Signature",
+										"value": "{{payload-signature}}",
+										"type": "text"
+									},
+									{
+										"key": "X-Date",
+										"value": "{{timestamp}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Login",
+										"value": "{{xlogin}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "X-Trans-Key",
+										"value": "{{xtranskey}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7235267812115678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"127\",\n    \"bank_account\":\"4213644171194756\",\n    \"amount\":\"2\",\n    \"is_card\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/api_curl/cashout_api/request_cashout",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"api_curl",
+										"cashout_api",
+										"request_cashout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Check Payout Status",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function hmac_512(message, secret) {",
+									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+									"    return newHMAC;",
+									"}",
+									"",
+									"let timestamp = new Date().toJSON();",
+									"",
+									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+									"  (match, capture) => pm.variables.get(capture));",
+									"",
+									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+									"var body = pm.request.body.toString()",
+									"",
+									"var message = body",
+									"var secret = pm.environment.get('Secretkey');",
+									"",
+									"pm.environment.set('body', body);",
+									"pm.environment.set('timestamp', timestamp);",
+									"pm.environment.set(\"message\",message)",
+									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Payload-Signature",
+								"value": "{{payload-signature}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api_curl/cashout_api/check_status_cashout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api_curl",
+								"cashout_api",
+								"check_status_cashout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Payout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function hmac_512(message, secret) {",
+									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+									"    return newHMAC;",
+									"}",
+									"",
+									"let timestamp = new Date().toJSON();",
+									"",
+									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+									"  (match, capture) => pm.variables.get(capture));",
+									"",
+									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+									"var body = pm.request.body.toString()",
+									"",
+									"var message = body",
+									"var secret = pm.environment.get('Secretkey');",
+									"",
+									"pm.environment.set('body', body);",
+									"pm.environment.set('timestamp', timestamp);",
+									"pm.environment.set(\"message\",message)",
+									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Payload-Signature",
+								"value": "{{payload-signature}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api_curl/cashout_api/cancel_cashout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api_curl",
+								"cashout_api",
+								"cancel_cashout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Payout Get exchange rate",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function hmac_512(message, secret) {",
+									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
+									"    return newHMAC;",
+									"}",
+									"",
+									"let timestamp = new Date().toJSON();",
+									"",
+									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
+									"  (match, capture) => pm.variables.get(capture));",
+									"",
+									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
+									"var body = pm.request.body.toString()",
+									"",
+									"var message = body",
+									"var secret = pm.environment.get('Secretkey');",
+									"",
+									"pm.environment.set('body', body);",
+									"pm.environment.set('timestamp', timestamp);",
+									"pm.environment.set(\"login\",login)",
+									"pm.environment.set(\"message\",message)",
+									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Payload-Signature",
+								"value": "{{payload-signature}}",
+								"type": "text"
+							},
+							{
+								"key": "X-Date",
+								"value": "{{timestamp}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Login",
+								"value": "{{xlogin}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "X-Trans-Key",
+								"value": "{{xtranskey}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\":\"38f838a3fd\",\n    \"pass\":\"a3acd84956\",\n    \"currency\": \"UYU\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api_curl/cashout_api/get_exchange_rate",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api_curl",
+								"cashout_api",
+								"get_exchange_rate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "randomNum",
+			"value": ""
+		}
+	]
+}
