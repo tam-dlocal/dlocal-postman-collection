@@ -3,7 +3,7 @@
 
 **How to download**
 
-1. Click on the following [Link](https://https://github.com/tam-dLocal/Postman-Collection)
+1. Click on the following [Link](https://github.com/tam-dLocal/Postman-Collection)
 2. Click on Code and then click on download ZIP
 
 
@@ -35,11 +35,11 @@ Once you have imported the Postman Collection and Payins and Payouts Environment
 
    a. Host: https://sandbox.dlocal.com 
 
-   b. X-Login: insert x_login value from https://merchant.dlocal.com/ 
+   b. X-Login: insert x_login value from https://dashboard.dlocal.com/ 
 
-   c. X-Trans-Key: insert x_trans_key value from https://merchant.dlocal.com/ 
+   c. X-Trans-Key: insert x_trans_key value from https://dashboard.dlocal.com/ 
 
-   d. Secretkey: insert Secret Key value from https://merchant.dlocal.com/
+   d. Secretkey: insert Secret Key value from https://dashboard.dlocal.com/
 
 **Payouts**
 
@@ -51,11 +51,11 @@ Once you have imported the Postman Collection and Payins and Payouts Environment
 
    a. Host: https://sandbox.dlocal.com 
    
-   b. X-Login: insert Cash Out x_login value from https://merchant.dlocal.com/
+   b. X-Login: insert Cash Out x_login value from https://dashboard.dlocal.com/
    
-   c. X-Trans-Key: insert Cash Out x_trans_key value from https://merchant.dlocal.com/ 
+   c. X-Trans-Key: insert Cash Out x_trans_key value from https://dashboard.dlocal.com/
    
-   d. Secretkey: insert Cash Out Secret Key value from https://merchant.dlocal.com/
+   d. Secretkey: insert Cash Out Secret Key value from https://dashboard.dlocal.com/
    
    **Prepare your requests**
    
