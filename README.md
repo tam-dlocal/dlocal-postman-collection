@@ -3,8 +3,7 @@
 
 **How to download**
 
-1. Click on the following [Link](https://github.com/tam-dLocal/Postman-Collection)
-2. Click on Code and then click on download ZIP
+1. Click on Code and then click on download ZIP
 
 
 ![Alt text](https://github.com/tam-dLocal/Images-for-Readme/blob/main/readme1.png "Optional title")
