@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a3607724-0e62-4561-bed3-9642e91186df",
-		"name": "Postman-Collections Copy",
+		"_postman_id": "9857b391-d399-405a-918e-1dcc47b74b59",
+		"name": "dLocal Postman-Collections",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -2212,24 +2212,19 @@
 									"script": {
 										"exec": [
 											"function hmac_512(message, secret) {",
-											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-											"    return newHMAC;",
+											"    return CryptoJS.HmacSHA256(message, secret);",
 											"}",
-											"",
-											"let timestamp = new Date().toJSON();",
 											"",
 											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 											"  (match, capture) => pm.variables.get(capture));",
 											"",
-											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-											"var body = pm.request.body.toString()",
+											"var body = resolveVariables(pm.request.body.toString())",
 											"",
 											"var message = body",
 											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
-											"pm.environment.set('timestamp', timestamp);",
-											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"message\",message);",
 											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 										],
 										"type": "text/javascript"
@@ -2243,29 +2238,11 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
-									},
-									{
-										"key": "X-Date",
-										"value": "{{timestamp}}",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "X-Login",
-										"value": "{{xlogin}}",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "X-Trans-Key",
-										"value": "{{xtranskey}}",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"1241530812315678b\",\n    \"document_id\":\"44640599\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"UY\",\n    \"bank_code\":\"113\",\n    \"bank_account\":\"1234567\",\n    \"account_type\":\"C\",\n    \"amount\":\"200\"\n}",
+									"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"1241530812315678b\",\n    \"document_id\":\"44640599\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"UY\",\n    \"bank_code\":\"113\",\n    \"bank_account\":\"1234567\",\n    \"account_type\":\"C\",\n    \"amount\":\"200\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2294,24 +2271,19 @@
 									"script": {
 										"exec": [
 											"function hmac_512(message, secret) {",
-											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-											"    return newHMAC;",
+											"    return CryptoJS.HmacSHA256(message, secret);",
 											"}",
-											"",
-											"let timestamp = new Date().toJSON();",
 											"",
 											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 											"  (match, capture) => pm.variables.get(capture));",
 											"",
-											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-											"var body = pm.request.body.toString()",
+											"var body = resolveVariables(pm.request.body.toString())",
 											"",
 											"var message = body",
 											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
-											"pm.environment.set('timestamp', timestamp);",
-											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"message\",message);",
 											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 										],
 										"type": "text/javascript"
@@ -2347,7 +2319,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
+									"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7211567812315678b\",\n    \"document_id\":\"53364171068\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"BR\",\n    \"bank_code\":\"341\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"14591-8\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\",\n    \"document_type\":\"CPF\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2376,24 +2348,19 @@
 									"script": {
 										"exec": [
 											"function hmac_512(message, secret) {",
-											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-											"    return newHMAC;",
+											"    return CryptoJS.HmacSHA256(message, secret);",
 											"}",
-											"",
-											"let timestamp = new Date().toJSON();",
 											"",
 											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 											"  (match, capture) => pm.variables.get(capture));",
 											"",
-											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-											"var body = pm.request.body.toString()",
+											"var body = resolveVariables(pm.request.body.toString())",
 											"",
 											"var message = body",
 											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
-											"pm.environment.set('timestamp', timestamp);",
-											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"message\",message);",
 											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 										],
 										"type": "text/javascript"
@@ -2407,29 +2374,11 @@
 										"key": "Payload-Signature",
 										"value": "{{payload-signature}}",
 										"type": "text"
-									},
-									{
-										"key": "X-Date",
-										"value": "{{timestamp}}",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "X-Login",
-										"value": "{{xlogin}}",
-										"type": "text",
-										"disabled": true
-									},
-									{
-										"key": "X-Trans-Key",
-										"value": "{{xtranskey}}",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7281567812315682b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"NG\",\n    \"currency\": \"NGN\",\n    \"bank_code\":\"011\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"0126974783\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\"\n   \n}",
+									"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7281567812315682b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"NG\",\n    \"currency\": \"NGN\",\n    \"bank_code\":\"011\",\n    \"bank_branch\": \"2611\",\n    \"bank_account\":\"0126974783\",\n    \"account_type\":\"C\",\n    \"amount\":\"20\"\n   \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2458,24 +2407,19 @@
 									"script": {
 										"exec": [
 											"function hmac_512(message, secret) {",
-											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-											"    return newHMAC;",
+											"    return CryptoJS.HmacSHA256(message, secret);",
 											"}",
-											"",
-											"let timestamp = new Date().toJSON();",
 											"",
 											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 											"  (match, capture) => pm.variables.get(capture));",
 											"",
-											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-											"var body = pm.request.body.toString()",
+											"var body = resolveVariables(pm.request.body.toString())",
 											"",
 											"var message = body",
 											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
-											"pm.environment.set('timestamp', timestamp);",
-											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"message\",message);",
 											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 										],
 										"type": "text/javascript"
@@ -2511,7 +2455,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7235507812315678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"137\",\n    \"bank_account\":\"012180001116984192\",\n    \"amount\":\"20\"\n}",
+									"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7235507812315678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"137\",\n    \"bank_account\":\"012180001116984192\",\n    \"amount\":\"20\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2540,24 +2484,19 @@
 									"script": {
 										"exec": [
 											"function hmac_512(message, secret) {",
-											"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-											"    return newHMAC;",
+											"    return CryptoJS.HmacSHA256(message, secret);",
 											"}",
-											"",
-											"let timestamp = new Date().toJSON();",
 											"",
 											"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 											"  (match, capture) => pm.variables.get(capture));",
 											"",
-											"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-											"var body = pm.request.body.toString()",
+											"var body = resolveVariables(pm.request.body.toString())",
 											"",
 											"var message = body",
 											"var secret = pm.environment.get('Secretkey');",
 											"",
 											"pm.environment.set('body', body);",
-											"pm.environment.set('timestamp', timestamp);",
-											"pm.environment.set(\"message\",message)",
+											"pm.environment.set(\"message\",message);",
 											"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 										],
 										"type": "text/javascript"
@@ -2593,7 +2532,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7235267812115678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"127\",\n    \"bank_account\":\"4213644171194756\",\n    \"amount\":\"2\",\n    \"is_card\": \"1\"\n}",
+									"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7235267812115678b\",\n    \"beneficiary_name\":\"Test\",\n    \"beneficiary_lastname\":\"Test\",\n    \"country\":\"MX\",\n    \"bank_code\":\"127\",\n    \"bank_account\":\"4213644171194756\",\n    \"amount\":\"2\",\n    \"is_card\": \"1\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2624,23 +2563,18 @@
 							"script": {
 								"exec": [
 									"function hmac_512(message, secret) {",
-									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-									"    return newHMAC;",
+									"    return CryptoJS.HmacSHA256(message, secret);",
 									"}",
-									"",
-									"let timestamp = new Date().toJSON();",
 									"",
 									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 									"  (match, capture) => pm.variables.get(capture));",
 									"",
-									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-									"var body = pm.request.body.toString()",
+									"var body = resolveVariables(pm.request.body.toString())",
 									"",
 									"var message = body",
 									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
-									"pm.environment.set('timestamp', timestamp);",
 									"pm.environment.set(\"message\",message)",
 									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 								],
@@ -2655,29 +2589,11 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
-							},
-							{
-								"key": "X-Date",
-								"value": "{{timestamp}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Login",
-								"value": "{{xlogin}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Trans-Key",
-								"value": "{{xtranskey}}",
-								"type": "text",
-								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
+							"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2706,23 +2622,18 @@
 							"script": {
 								"exec": [
 									"function hmac_512(message, secret) {",
-									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-									"    return newHMAC;",
+									"    return CryptoJS.HmacSHA256(message, secret);",
 									"}",
-									"",
-									"let timestamp = new Date().toJSON();",
 									"",
 									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 									"  (match, capture) => pm.variables.get(capture));",
 									"",
-									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-									"var body = pm.request.body.toString()",
+									"var body = resolveVariables(pm.request.body.toString())",
 									"",
 									"var message = body",
 									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
-									"pm.environment.set('timestamp', timestamp);",
 									"pm.environment.set(\"message\",message)",
 									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 								],
@@ -2737,29 +2648,11 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
-							},
-							{
-								"key": "X-Date",
-								"value": "{{timestamp}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Login",
-								"value": "{{xlogin}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Trans-Key",
-								"value": "{{xtranskey}}",
-								"type": "text",
-								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\":\"Insert your X-Login\",\n    \"pass\":\"Insert your X-Trans-Key\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
+							"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"external_id\":\"7231567812315678b\",\n    \"cashout_id\":\"171413\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2788,25 +2681,19 @@
 							"script": {
 								"exec": [
 									"function hmac_512(message, secret) {",
-									"var newHMAC = CryptoJS.HmacSHA256(message, secret);",
-									"    return newHMAC;",
+									"    return CryptoJS.HmacSHA256(message, secret);",
 									"}",
-									"",
-									"let timestamp = new Date().toJSON();",
 									"",
 									"var resolveVariables = s => s.replace(/\\{\\{([^}]+)\\}\\}/g,  ",
 									"  (match, capture) => pm.variables.get(capture));",
 									"",
-									"var login = resolveVariables(pm.request.headers.get('X-Login'))",
-									"var body = pm.request.body.toString()",
+									"var body = resolveVariables(pm.request.body.toString())",
 									"",
 									"var message = body",
 									"var secret = pm.environment.get('Secretkey');",
 									"",
 									"pm.environment.set('body', body);",
-									"pm.environment.set('timestamp', timestamp);",
-									"pm.environment.set(\"login\",login)",
-									"pm.environment.set(\"message\",message)",
+									"pm.environment.set(\"message\",message);",
 									"pm.environment.set(\"payload-signature\", String(hmac_512(message,secret)));"
 								],
 								"type": "text/javascript"
@@ -2820,29 +2707,11 @@
 								"key": "Payload-Signature",
 								"value": "{{payload-signature}}",
 								"type": "text"
-							},
-							{
-								"key": "X-Date",
-								"value": "{{timestamp}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Login",
-								"value": "{{xlogin}}",
-								"type": "text",
-								"disabled": true
-							},
-							{
-								"key": "X-Trans-Key",
-								"value": "{{xtranskey}}",
-								"type": "text",
-								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\":\"38f838a3fd\",\n    \"pass\":\"a3acd84956\",\n    \"currency\": \"UYU\"\n}",
+							"raw": "{\n    \"login\":\"{{X-Login}}\",\n    \"pass\":\"{{X-Trans-Key}}\",\n    \"currency\": \"UYU\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
